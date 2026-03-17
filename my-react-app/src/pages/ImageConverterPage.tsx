@@ -126,39 +126,11 @@ export default function ImageConverterPage({ onBack, initialImage, initialText }
                                 ref={fileInputRef}
                                 onChange={handleFileSelect}
                                 accept="image/*"
-                                style={{ display: 'none' }}
-                            />
-                            <input
-                                type="file"
-                                id="cameraInput"
-                                accept="image/*"
-                                capture="environment"
-                                onChange={handleFileSelect}
-                                style={{ display: 'none' }}
                             />
                             <span className="upload-icon">📁</span>
-                            <h3>Drag & Drop, Upload, or Take Photo</h3>
+                            <h3>Drag & Drop or Click to Upload</h3>
                             <p>Supports JPG, PNG, WEBP (Max 10MB)</p>
-                            <div className="upload-actions" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1rem' }}>
-                                <button
-                                    className="action-btn"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        document.getElementById('cameraInput')?.click();
-                                    }}
-                                >
-                                    📸 Take Photo
-                                </button>
-                                <button
-                                    className="action-btn"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        fileInputRef.current?.click();
-                                    }}
-                                >
-                                    📂 Browse Files
-                                </button>
-                            </div>
+                            <button className="browse-btn">Browse Files</button>
                         </div>
                     ) : (
                         <div className="image-preview">
