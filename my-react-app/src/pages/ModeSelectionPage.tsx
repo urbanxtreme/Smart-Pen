@@ -13,12 +13,19 @@ export default function ModeSelectionPage({ onSelectMode }: ModeSelectionPagePro
             </header>
 
             <div className="mode-cards">
-                {/* Pen Mode - Coming Soon */}
-                <div className="mode-card disabled">
-                    <div className="coming-soon-badge">Coming Soon</div>
+                {/* Pen Mode - Active */}
+                <div 
+                    className="mode-card active"
+                    onClick={() => onSelectMode('pen')}
+                >
+                    <div className="coming-soon-badge" style={{ background: '#22c55e', color: 'white' }}>Live Preview</div>
                     <span className="mode-card-icon">🖊️</span>
                     <h2>Convert from Pen</h2>
-                    <p>Connect your Smart Pen device to digitize notes in real-time as you write.</p>
+                    <p>Simulate connection to your Smart Pen and digitize notes in real-time.</p>
+                    
+                    <div className="card-arrow">
+                        Start Simulation <span>→</span>
+                    </div>
                 </div>
 
                 {/* Image Mode - Active */}

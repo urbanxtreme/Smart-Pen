@@ -2,10 +2,11 @@ import { useState } from 'react';
 import IntroPage from './pages/IntroPage';
 import ModeSelectionPage from './pages/ModeSelectionPage';
 import ImageConverterPage from './pages/ImageConverterPage';
+import PenConverterPage from './pages/PenConverterPage';
 import HistoryPage from './pages/HistoryPage';
 import "./styles/global.css";
 
-type AppState = 'intro' | 'modeSelection' | 'converter' | 'history';
+type AppState = 'intro' | 'modeSelection' | 'converter' | 'pen' | 'history';
 
 interface HistoryData {
   image: string;
@@ -26,6 +27,8 @@ export default function App() {
       setCurrentState('converter');
     } else if (mode === 'history') {
       setCurrentState('history');
+    } else if (mode === 'pen') {
+      setCurrentState('pen');
     }
   };
 
@@ -36,7 +39,7 @@ export default function App() {
 
   const handleLoadFromHistory = (image: string, text: string) => {
     setHistoryData({ image, text });
-    setCurrentState('converter');
+    setCurrentState('converter'); // Can be opened in the standard converter
   };
 
   return (
@@ -55,6 +58,10 @@ export default function App() {
           initialImage={historyData?.image ?? null}
           initialText={historyData?.text ?? null}
         />
+      )}
+
+      {currentState === 'pen' && (
+        <PenConverterPage onBack={handleBackToModes} />
       )}
 
       {currentState === 'history' && (

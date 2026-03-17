@@ -1,0 +1,261 @@
+/* Pen Converter Styles */
+.pen-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0f 0%, #12121a 100%);
+    padding: 2rem;
+    position: relative;
+}
+
+/* Header */
+.pen-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    animation: fadeIn 0.6s ease;
+}
+
+.pen-header h1 {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+/* Connection Overlay */
+.connection-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 50;
+    animation: fadeIn 0.4s ease;
+}
+
+.connection-card {
+    text-align: center;
+    padding: 3rem;
+    border-radius: 24px;
+    max-width: 400px;
+    width: 90%;
+}
+
+.connection-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.connection-card h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.connection-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.loading-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gradient-start), var(--accent-cyan));
+    transition: width 0.5s ease;
+    border-radius: 10px;
+}
+
+/* Main Dashboard content */
+.pen-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease;
+}
+
+/* Hardware Dashboard Panel */
+.dashboard-panel {
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.device-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 10px #22c55e;
+}
+
+.manufacturer {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+}
+
+.stat-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+}
+
+.stat-value {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Workspace Grid */
+.workspace-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 2rem;
+}
+
+@media (max-width: 900px) {
+    .workspace-grid {
+        grid-template-columns: 1fr;
+    }
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+.canvas-panel, .output-panel {
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Canvas Area */
+.canvas-wrapper {
+    position: relative;
+    flex: 1;
+    min-height: 400px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+.drawing-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none; /* Prevents scroll when drawing on mobile */
+}
+
+.canvas-hint {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    pointer-events: none;
+}
+
+/* Actions */
+.canvas-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.clear-btn {
+    padding: 0.875rem 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+}
+
+.extract-btn {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, var(--gradient-start), var(--accent-cyan));
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.extract-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.extract-btn:disabled, .extract-btn.processing {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: var(--bg-card);
+}
