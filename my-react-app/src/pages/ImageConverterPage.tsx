@@ -50,26 +50,34 @@ export default function ImageConverterPage({ onBack }: ImageConverterPageProps) 
         }
     };
 
-    const handleConvert = () => {
+    const handleConvert = async () => {
         if (!image) return;
 
         setIsProcessing(true);
-        setHasConverted(false); // Reset to show loading
+        setHasConverted(false);
 
-        // Simulate AI processing delay
-        setTimeout(() => {
-            const randomTexts = [
-                "The quick brown fox jumps over the lazy dog. Programming is the art of telling another human what one wants the computer to do.",
-                "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer the slings and arrows of outrageous fortune, or to take arms against a sea of troubles.",
-                "Machine learning is a field of inquiry devoted to understanding and building methods that 'learn', that is, methods that leverage data to improve performance on some set of tasks.",
-                "React is a library. It lets you put components together, but it doesn't prescribe how to do routing and data fetching. To build a whole app with React, we recommend a full-stack React framework like Next.js or Remix."
-            ];
+        try {
+            const response = await fetch('/api/ocr', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image }),
+            });
 
-            const randomText = randomTexts[Math.floor(Math.random() * randomTexts.length)];
-            setOutput(randomText);
-            setIsProcessing(false);
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to process image');
+            }
+
+            setOutput(data.text);
             setHasConverted(true);
-        }, 2000);
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'Something went wrong';
+            setOutput(`Error: ${message}`);
+            setHasConverted(true);
+        } finally {
+            setIsProcessing(false);
+        }
     };
 
     const copyToClipboard = () => {
