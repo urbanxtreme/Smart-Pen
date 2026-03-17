@@ -1,7 +1,7 @@
 import '../styles/modeSelection.css';
 
 interface ModeSelectionPageProps {
-    onSelectMode: (mode: 'pen' | 'image') => void;
+    onSelectMode: (mode: 'pen' | 'image' | 'history') => void;
 }
 
 export default function ModeSelectionPage({ onSelectMode }: ModeSelectionPageProps) {
@@ -34,7 +34,22 @@ export default function ModeSelectionPage({ onSelectMode }: ModeSelectionPagePro
                         Start Converting <span>→</span>
                     </div>
                 </div>
+
+                {/* History Mode */}
+                <div
+                    className="mode-card active"
+                    onClick={() => onSelectMode('history')}
+                >
+                    <span className="mode-card-icon">📜</span>
+                    <h2>Conversion History</h2>
+                    <p>View, edit, and manage your past handwriting conversions.</p>
+
+                    <div className="card-arrow">
+                        View History <span>→</span>
+                    </div>
+                </div>
             </div>
         </div>
     );
 }
+

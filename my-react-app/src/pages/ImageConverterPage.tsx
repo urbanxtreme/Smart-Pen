@@ -3,14 +3,16 @@ import '../styles/imageConverter.css';
 
 interface ImageConverterPageProps {
     onBack: () => void;
+    initialImage?: string | null;
+    initialText?: string | null;
 }
 
-export default function ImageConverterPage({ onBack }: ImageConverterPageProps) {
-    const [image, setImage] = useState<string | null>(null);
+export default function ImageConverterPage({ onBack, initialImage, initialText }: ImageConverterPageProps) {
+    const [image, setImage] = useState<string | null>(initialImage ?? null);
     const [isProcessing, setIsProcessing] = useState(false);
-    const [output, setOutput] = useState<string>('');
+    const [output, setOutput] = useState<string>(initialText ?? '');
     const [isDragOver, setIsDragOver] = useState(false);
-    const [hasConverted, setHasConverted] = useState(false);
+    const [hasConverted, setHasConverted] = useState(!!initialText);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleDragOver = (e: React.DragEvent) => {
@@ -124,11 +126,39 @@ export default function ImageConverterPage({ onBack }: ImageConverterPageProps) 
                                 ref={fileInputRef}
                                 onChange={handleFileSelect}
                                 accept="image/*"
+                                style={{ display: 'none' }}
+                            />
+                            <input
+                                type="file"
+                                id="cameraInput"
+                                accept="image/*"
+                                capture="environment"
+                                onChange={handleFileSelect}
+                                style={{ display: 'none' }}
                             />
                             <span className="upload-icon">📁</span>
-                            <h3>Drag & Drop or Click to Upload</h3>
+                            <h3>Drag & Drop, Upload, or Take Photo</h3>
                             <p>Supports JPG, PNG, WEBP (Max 10MB)</p>
-                            <button className="browse-btn">Browse Files</button>
+                            <div className="upload-actions" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1rem' }}>
+                                <button
+                                    className="action-btn"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        document.getElementById('cameraInput')?.click();
+                                    }}
+                                >
+                                    📸 Take Photo
+                                </button>
+                                <button
+                                    className="action-btn"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        fileInputRef.current?.click();
+                                    }}
+                                >
+                                    📂 Browse Files
+                                </button>
+                            </div>
                         </div>
                     ) : (
                         <div className="image-preview">

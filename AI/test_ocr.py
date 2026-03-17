@@ -34,18 +34,17 @@ clean_input = raw_text.replace("\n", " ")
 # 🤖 DeepSeek correction (LOCAL via Ollama)
 def clean_text_with_deepseek(text):
     prompt = f"""
-You are an OCR correction system.
+You are an OCR post-processor. Your ONLY job is to fix characters that were misread by OCR.
 
-Correct the following text completely.
-
-Rules:
-- Fix spelling mistakes
-- Fix grammar
-- Remove strange symbols like €, &, etc.
-- Preserve the full sentence
-- Do NOT shorten the text
-- Do NOT explain anything
-- Output ONLY the corrected full text
+STRICT RULES:
+- ONLY fix garbled or misrecognized characters (e.g. "rn" misread as "m", "0" misread as "O")
+- NEVER change, rephrase, reword, or rewrite any part of the text
+- NEVER add words that are not in the original
+- NEVER remove words that are in the original
+- NEVER fix grammar or restructure sentences
+- Keep the EXACT same words in the EXACT same order
+- Remove only obvious OCR artifacts like random symbols (€, ¢, |) that clearly don't belong
+- Output ONLY the corrected text, no explanations
 
 OCR Text:
 {text}
